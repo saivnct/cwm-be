@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CWM Jump</title>
+    <style>
+        body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+        .form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+        .input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+        .input:focus { outline: none; }
+        .form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+        button[disabled=disabled], button:disabled {
+            color: #c0c0c0;
+            background: #7f7f7f
+        }
+
+        #messages { list-style-type: none; margin: 0; padding: 0; }
+        #messages > li { padding: 0.5rem 1rem; }
+        #messages > li:nth-child(odd) { background: #efefef; }
+    </style>
+</head>
+<body>
+    <ul id="messages"></ul>
+
+    <form class="form" id="form2" action="">
+        <input class="input" id="msgContent" placeholder="message" autocomplete="off" />
+        <button>Send</button>
+    </form>
+
+    <form class="form" id="form" action="">
+        <input class="input" id="username" autocomplete="off" value="test"/>
+        <input class="input" id="phone" autocomplete="off" value="123456"/>
+        <button>Login</button>
+    </form>
+
+
+    <script src="socket.io.js"></script>
+    <script src="socket-handler.js"></script>
+    <script>
+        let form2 = document.getElementById('form2');
+        let msgContent = document.getElementById('msgContent');
+
+        let form = document.getElementById('form');
+        let username = document.getElementById('username');
+        let phone = document.getElementById('phone');
+
+        let messages = document.getElementById('messages');
+
+        form2.style.visibility = "hidden";
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (username.value && phone.value) {
+                login(username.value, phone.value);
+            }
+
+        });
+
+
+        form2.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (msgContent.value) {
+                sendMsg(msgContent.value);
+            }
+        });
+
+
+
+    </script>
+
+</body>
+</html>
